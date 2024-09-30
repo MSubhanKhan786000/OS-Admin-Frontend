@@ -25,7 +25,7 @@ function Tables() {
       const response = await axios.get('http://localhost:5000/calling');
       setData(response.data);
       setCallbacks(response.data)
-      console.log("call backs are---->",callbacks);
+      console.log("call backs are---->", callbacks);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -34,16 +34,16 @@ function Tables() {
   const handleUpdateEnum = async (index) => {
     try {
       const currentCallback = callbacks[index];
-      
-      console.log("curretnt cal back data is-->",currentCallback);
+
+      console.log("curretnt cal back data is-->", currentCallback);
 
       if (currentCallback) {
         if (currentCallback.status !== 'cleared') {
           const updatedCallback = { ...currentCallback, status: 'cleared' };
-          console.log('Updated Callback:', updatedCallback); 
+          console.log('Updated Callback:', updatedCallback);
 
           const response = await axios.put('http://localhost:5000/id', updatedCallback);
-          console.log('Response:', response.data); 
+          console.log('Response:', response.data);
 
           const updatedCallbacks = [...callbacks];
           updatedCallbacks[index] = response.data;
@@ -95,7 +95,7 @@ function Tables() {
                   </tr>
                 </thead>
                 <tbody>
-                  {currentItems.map((item,index) => (
+                  {currentItems.map((item, index) => (
                     <tr key={item.id}>
                       <td style={tableCellStyle}>{item._id}</td>
                       <td style={tableCellStyle}>{item.fname}</td>
@@ -133,7 +133,7 @@ function Tables() {
 }
 
 const tableHeaderStyle = {
-  padding: '12px', 
+  padding: '12px',
   textAlign: 'start',
 };
 

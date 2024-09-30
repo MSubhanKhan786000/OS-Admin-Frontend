@@ -35,17 +35,17 @@ function Icons() {
 
 
   const deleteRecord = (_id, e) => {
-  
+
     e.preventDefault();
     axios.delete(`http://localhost:5000/dell/:_id`, { data: { _id } })
       .then((response) => {
-          alert("Data Deleted from Database")
-          window.location.reload()
+        alert("Data Deleted from Database")
+        window.location.reload()
         console.log(response);
 
       })
       .catch(err => console.log(err));
-    
+
   };
 
 
@@ -141,7 +141,7 @@ function Icons() {
                     <th style={tableHeaderStyle}>Email</th>
                     <th style={{ ...tableHeaderStyle, width: '800px' }}>Address</th>
                     <th style={tableHeaderStyle}> city</th>
-                    <th style={tableHeaderStyle}>Created At</th>
+                    <th style={tableHeaderStyle}>Created Atttt</th>
                     <th style={tableHeaderStyle}>Logged iN AS</th>
                     <th style={tableHeaderStyle}>Actions</th>
                     <th style={tableHeaderStyle}></th>
@@ -162,10 +162,10 @@ function Icons() {
                       <td style={tableCellStyle}>
                         <button style={updateButtonStyle} onClick={(e) => deleteRecord(item._id, e)}>Delete User </button>
                       </td>
-                       <td style={tableCellStyle}>
-               
+                      <td style={tableCellStyle}>
 
-                       </td>
+
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -204,9 +204,9 @@ const updateButtonStyle = {
   backgroundColor: 'crimson', // Blue color
   color: 'white',
   border: 'none',
-  flex:'1',
+  flex: '1',
   padding: '12px',
-  marginRight:'40px',  
+  marginRight: '40px',
   width: '110px',
   textAlign: 'center',
   textDecoration: 'none',

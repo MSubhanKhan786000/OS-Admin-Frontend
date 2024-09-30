@@ -17,7 +17,7 @@ function Notifications() {
   const [itemsPerPage] = useState(15); // Number of items per page from the backend set to 8
   const handleImageClick = (e, imageUrl) => {
     e.preventDefault();
-    console.log("imageUrl>>>>>>>>>>>>>>>>>>>>>>>>>>",imageUrl);
+    console.log("imageUrl>>>>>>>>>>>>>>>>>>>>>>>>>>", imageUrl);
     window.open(imageUrl);
   };
   useEffect(() => {
@@ -29,25 +29,25 @@ function Notifications() {
       const response = await axios.get('http://localhost:5000/kamial');
       setData(response.data)
       setCallbacks(response.data);
-      console.log("callbacks are--->",response.data);
+      console.log("callbacks are--->", response.data);
       console.log("data is fetched--->", response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   }
- 
+
   const handleUpdateEnum = async (index) => {
     try {
       // Assuming callbacks is an object with a 'data' property
       if (callbacks && callbacks.data) {
         const currentCallback = callbacks.data[index];
         console.log("current callback data is-->", currentCallback);
-  
+
         if (currentCallback) {
           if (currentCallback.status !== 'cleared') {
             const updatedCallback = { ...currentCallback, status: 'cleared' };
-            console.log('Updated Callback:', updatedCallback); 
-  
+            console.log('Updated Callback:', updatedCallback);
+
             const response = await axios.put('http://localhost:5000/pasa', updatedCallback);
             // Assuming callbacks is immutable, create a new object with the updated data
             const updatedCallbacks = { ...callbacks };
@@ -71,7 +71,7 @@ function Notifications() {
       console.error('Error updating status:', error);
     }
   };
-  
+
 
   // Pagination
   // Pagination
@@ -95,7 +95,7 @@ function Notifications() {
         <Col md="12">
           <Card>
             <CardHeader>
-              <CardTitle tag="h4">Queries</CardTitle>
+              <CardTitle tag="h4">Requests</CardTitle>
             </CardHeader>
             <CardBody>
               <Table responsive>
@@ -122,9 +122,22 @@ function Notifications() {
                       <td style={tableCellStyle}>{item.lname}</td>
                       <td style={tableCellStyle}>{item.pnumber}</td>
                       <td style={tableCellStyle}>{item.email}</td>
-                      <td onClick={(e) => handleImageClick(e, item.image)} style={{ ...tableCellStyle, maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                        <img src={item.image} alt="User Image" style={{ maxWidth: '100%', height: 'auto' }} />
+                      <td style={{ ...tableCellStyle, maxWidth: '200px', overflow: 'hidden' }}>
+                        {item.images && item.images.length > 0 ? (
+                          item.images.map((imageUrl, imgIndex) => (
+                            <img
+                              key={imgIndex}
+                              src={imageUrl}
+                              alt={`User Image ${imgIndex + 1}`}
+                              style={{ maxWidth: '100px', height: 'auto', margin: '5px' }}
+                              onClick={(e) => handleImageClick(e, imageUrl)}
+                            />
+                          ))
+                        ) : (
+                          <span>No Images</span>
+                        )}
                       </td>
+
 
                       <td style={tableCellStyle}>{item.createdAt}</td>
                       <td style={tableCellStyle}>{item.status}</td>
